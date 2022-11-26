@@ -4,6 +4,24 @@ import 'package:gsg_second_project/sqlHelper.dart';
 import 'package:quran/quran.dart' as quran;
 
 class MainScreenProvider extends ChangeNotifier {
+  Offset offset = const Offset(10, 650);
+  Offset offset2 = const Offset(10, 600);
+  double adjustment2 = 0;
+  setOffset(Offset n) {
+    offset = n;
+    notifyListeners();
+  }
+
+  setOffset2(Offset n) {
+    offset2 = n;
+    notifyListeners();
+  }
+
+  setAdjustment2(double n) {
+    adjustment2 = n;
+    notifyListeners();
+  }
+
   int isDarkTheme = 1;
   int chosenList = 1;
   int numOfCurrent = 114;
