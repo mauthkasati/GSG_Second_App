@@ -10,6 +10,7 @@ import 'package:gsg_second_project/screens/updateNoteScreen.dart';
 import 'package:gsg_second_project/sqlHelper.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 class UpdateForm extends StatelessWidget {
   final int verseID;
@@ -29,12 +30,46 @@ class UpdateForm extends StatelessWidget {
         String dropdownValue = categoriesList.first;
         String ddv2 = versesList[value.numOfCurrent - 1].first.toString();
         return Container(
-          padding: const EdgeInsets.all(20),
-          height: h * 5 / 7,
+          padding: const EdgeInsets.all(30),
+          height: h * 5.2 / 7,
           width: w * 5 / 6,
           decoration: BoxDecoration(
+            gradient: value.isDarkTheme == 1
+                ? const LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 2, 32, 9),
+                      Color.fromARGB(255, 14, 94, 34),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : LinearGradient(
+                    colors: [
+                      Colors.purple.shade300,
+                      Colors.blue.shade500,
+                    ],
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.center,
+                  ),
+            boxShadow: [
+              value.isDarkTheme == 1
+                  ? BoxShadow(
+                      color: Colors.grey.shade700.withOpacity(0.0),
+                      spreadRadius: 0,
+                      blurRadius: 0,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    )
+                  : BoxShadow(
+                      color: Colors.blue.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 2,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+            ],
             borderRadius: BorderRadius.circular(10),
-            color: const Color.fromARGB(255, 18, 18, 18),
+            color: value.isDarkTheme == 1
+                ? const Color.fromARGB(255, 18, 18, 18)
+                : Colors.blue.shade700,
           ),
           child: Column(
             children: [
@@ -45,21 +80,28 @@ class UpdateForm extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      ' :  التصنيف',
+                      'cat'.tr(),
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey.shade600,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade600
+                            : Colors.black,
                       ),
                     ),
                   ),
-                  SizedBox(width: w / 2.9),
+                  SizedBox(
+                      width: (context.locale == const Locale('en'))
+                          ? w / 2.9
+                          : w / 4.9),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      ' :  رقم الاية',
+                      'verseNum'.tr(),
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey.shade600,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade600
+                            : Colors.black,
                       ),
                     ),
                   ),
@@ -72,9 +114,14 @@ class UpdateForm extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade900
+                            : Colors.blue.shade300,
                         border: Border.all(
                           width: 1,
-                          color: Colors.grey.shade600,
+                          color: value.isDarkTheme == 1
+                              ? Colors.grey.shade600
+                              : Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(10)),
                     width: w / 4,
@@ -84,17 +131,24 @@ class UpdateForm extends StatelessWidget {
                         cat,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey.shade600,
+                          color: value.isDarkTheme == 1
+                              ? Colors.grey.shade600
+                              : Colors.black,
                         ),
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
+                      color: value.isDarkTheme == 1
+                          ? Colors.grey.shade900
+                          : Colors.blue.shade300,
                       border: Border.all(
                         width: 1,
-                        color: Colors.grey.shade600,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade600
+                            : Colors.black,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -105,7 +159,9 @@ class UpdateForm extends StatelessWidget {
                         verseID.toString(),
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey.shade600,
+                          color: value.isDarkTheme == 1
+                              ? Colors.grey.shade600
+                              : Colors.black,
                         ),
                       ),
                     ),
@@ -114,23 +170,33 @@ class UpdateForm extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: (context.locale == const Locale('en'))
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Text(
-                  ' :  قبل التعديل',
+                  ' : ${'beforeUpdate'.tr()}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade600
+                        : Colors.black,
                   ),
                 ),
               ),
+              const SizedBox(height: 5),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 height: h / 5.8,
                 width: w * 4 / 6,
                 decoration: BoxDecoration(
+                  color: value.isDarkTheme == 1
+                      ? Colors.grey.shade900
+                      : Colors.blue.shade300,
                   border: Border.all(
                     width: 1,
-                    color: Colors.grey.shade600,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade600
+                        : Colors.black,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -139,30 +205,42 @@ class UpdateForm extends StatelessWidget {
                     noteText,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey.shade600,
+                      color: value.isDarkTheme == 1
+                          ? Colors.grey.shade600
+                          : Colors.black,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 15),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: (context.locale == const Locale('en'))
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Text(
-                  ' :  بعد التعديل',
+                  ' : ${'afterUpdate'.tr()}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade600
+                        : Colors.black,
                   ),
                 ),
               ),
+              const SizedBox(height: 5),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 height: h / 5.8,
                 width: w * 4 / 6,
                 decoration: BoxDecoration(
+                  color: value.isDarkTheme == 1
+                      ? Colors.grey.shade900
+                      : Colors.blue.shade300,
                   border: Border.all(
                     width: 1,
-                    color: Colors.grey.shade600,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade600
+                        : Colors.black,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -170,7 +248,9 @@ class UpdateForm extends StatelessWidget {
                   controller: myController,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade600
+                        : Colors.black,
                   ),
                   minLines: 5,
                   maxLines: 50,
@@ -178,7 +258,9 @@ class UpdateForm extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 18, 18, 18),
+                backgroundColor: value.isDarkTheme == 1
+                    ? const Color.fromARGB(255, 18, 18, 18)
+                    : Colors.blue.shade200,
                 onPressed: () {
                   SqlHelper.dbh.updateData("""
                                           update notes 
@@ -203,8 +285,11 @@ class UpdateForm extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Center(child: Text("تم التعديل بنجاح")),
-                      content: Icon(
+                      title: Center(
+                          child: Text((context.locale == const Locale('en'))
+                              ? "تم التعديل بنجاح"
+                              : "Updated Successfully")),
+                      content: const Icon(
                         Icons.check_circle_outline,
                         size: 30,
                       ),
@@ -213,7 +298,9 @@ class UpdateForm extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text('حسناً'),
+                          child: Text((context.locale == const Locale('en'))
+                              ? "حسناً"
+                              : "OK"),
                         ),
                       ],
                     ),
@@ -221,7 +308,9 @@ class UpdateForm extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.update,
-                  color: Colors.grey.shade500,
+                  color: value.isDarkTheme == 1
+                      ? Colors.grey.shade500
+                      : Colors.black,
                   size: 35,
                 ),
               ),

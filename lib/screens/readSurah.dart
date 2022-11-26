@@ -5,6 +5,7 @@ import 'package:gsg_second_project/widgets/readSurahWidget.dart/textOfSurah.dart
 import 'package:gsg_second_project/widgets/readSurahWidget.dart/topOfReadSurah.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 class ReadSurah extends StatelessWidget {
   int numOfSurah = 1;
@@ -18,7 +19,9 @@ class ReadSurah extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Consumer<MainScreenProvider>(builder: ((context, value, child) {
       return Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: value.isDarkTheme == 1
+            ? Colors.grey.shade900
+            : Colors.green.shade200,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -31,7 +34,9 @@ class ReadSurah extends StatelessWidget {
                     quran.basmala,
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.grey.shade300,
+                      color: value.isDarkTheme == 1
+                          ? Colors.grey.shade300
+                          : Colors.black,
                     ),
                   ),
                 ),

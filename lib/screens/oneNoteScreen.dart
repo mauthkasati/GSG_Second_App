@@ -5,6 +5,7 @@ import 'package:gsg_second_project/widgets/oneNoteWidgets/bodyOfOneNoteScreen.da
 import 'package:gsg_second_project/widgets/oneNoteWidgets/topOfOneNoteScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 class OneNoteScreen extends StatelessWidget {
   final String cat;
@@ -22,7 +23,9 @@ class OneNoteScreen extends StatelessWidget {
     return Consumer<MainScreenProvider>(
       builder: ((context, value, child) {
         return Scaffold(
-          backgroundColor: Colors.grey.shade900,
+          backgroundColor: value.isDarkTheme == 1
+              ? Colors.grey.shade900
+              : Colors.green.shade200,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -34,9 +37,11 @@ class OneNoteScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'ملاحظة على سورة ${quran.getSurahNameArabic(value.numOfCurrent)}',
+                          ' ${'noteOnSurah'.tr()} ${(context.locale == const Locale('en')) ? quran.getSurahNameArabic(value.numOfCurrent) : quran.getSurahName(value.numOfCurrent)}',
                           style: TextStyle(
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                             fontSize: 18,
                           ),
                         ),

@@ -113,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                                         value.changeFirstChar(
                                           myController.text,
                                         );
+                                        value.setTheme;
                                         // ignore: use_build_context_synchronously
                                         Timer(
                                           const Duration(milliseconds: 600),

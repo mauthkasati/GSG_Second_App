@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gsg_second_project/providers/mainScreenProvider.dart';
 import 'package:gsg_second_project/providers/p.dart';
@@ -21,6 +22,7 @@ import 'package:quran/quran.dart' as quran;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await SqlHelper.dbh.initDB();
   runApp(
     MultiProvider(
@@ -30,7 +32,12 @@ void main() async {
           create: (context) => MainScreenProvider(),
         ),
       ],
-      child: const MyApp(),
+      child: EasyLocalization(
+        supportedLocales: const [Locale('ar'), Locale('en')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('ar'),
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -47,7 +54,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: FirstScreen(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: const FirstScreen(),
     );
   }
 }

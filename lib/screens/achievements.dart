@@ -5,6 +5,7 @@ import 'package:gsg_second_project/widgets/achievementsWidgets/oneAchievement.da
 import 'package:gsg_second_project/widgets/achievementsWidgets/topOfAchievements.dart';
 import 'package:gsg_second_project/providers/mainScreenProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Achievements extends StatelessWidget {
   // final List<Map<dynamic, dynamic>> d;
@@ -34,7 +35,9 @@ class Achievements extends StatelessWidget {
               width: w,
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.grey.shade900,
+                color: value.isDarkTheme == 1
+                    ? Colors.grey.shade900
+                    : Colors.green.shade200,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -43,7 +46,7 @@ class Achievements extends StatelessWidget {
                       return OneAchievement(
                         e['id'],
                         e['firstChar'],
-                        ' الآية رقم ${e['verse']}',
+                        '${'verseNum'.tr()} ${e['verse']}',
                         e['surah'],
                       );
                     }),

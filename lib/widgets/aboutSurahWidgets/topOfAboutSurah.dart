@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsg_second_project/providers/mainScreenProvider.dart';
@@ -22,8 +23,10 @@ class TopOfAboutSurah extends StatelessWidget {
           padding: EdgeInsets.all(15),
           width: w,
           height: h / 7,
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 95, 60, 8),
+          decoration: BoxDecoration(
+            color: value.isDarkTheme == 1
+                ? Color.fromARGB(255, 95, 60, 8)
+                : Colors.brown.shade500,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +46,9 @@ class TopOfAboutSurah extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.grey.shade200,
+                      color: value.isDarkTheme == 1
+                          ? Colors.grey.shade200
+                          : Colors.black,
                     ),
                   ),
                 ),
@@ -54,11 +59,13 @@ class TopOfAboutSurah extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "عن سورة $name",
+                      " ${'about'.tr()} ${(context.locale == const Locale('en')) ? quran.getSurahNameArabic(value.numOfCurrent) : quran.getSurahName(value.numOfCurrent)}",
                       style: TextStyle(
                         decoration: TextDecoration.none,
-                        fontSize: 28,
-                        color: Colors.grey.shade200,
+                        fontSize: 23,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade200
+                            : Colors.black,
                       ),
                     ),
                   ],

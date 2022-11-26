@@ -5,6 +5,7 @@ import 'package:gsg_second_project/screens/mainScreen.dart';
 import 'package:gsg_second_project/screens/readSurah.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 class TopOfReadSyrah extends StatelessWidget {
   const TopOfReadSyrah({super.key});
@@ -21,8 +22,10 @@ class TopOfReadSyrah extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           width: w,
           height: h / 7,
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 95, 60, 8),
+          decoration: BoxDecoration(
+            color: value.isDarkTheme == 1
+                ? Color.fromARGB(255, 95, 60, 8)
+                : Colors.brown.shade500,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +45,9 @@ class TopOfReadSyrah extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.grey.shade200,
+                      color: value.isDarkTheme == 1
+                          ? Colors.grey.shade200
+                          : Colors.black,
                     ),
                   ),
                 ),
@@ -53,19 +58,25 @@ class TopOfReadSyrah extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "اقرا سورة $name",
+                      (context.locale == const Locale('en'))
+                          ? " ${'readSurahTop'.tr()} ${quran.getSurahNameArabic(value.numOfCurrent)}"
+                          : " ${'readSurahTop'.tr()} ${quran.getSurahName(value.numOfCurrent)}",
                       style: TextStyle(
                         decoration: TextDecoration.none,
-                        fontSize: 28,
-                        color: Colors.grey.shade200,
+                        fontSize: 23,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade200
+                            : Colors.black,
                       ),
                     ),
                     Text(
-                      "سورة $name _ $numOfVerses ايات",
+                      "${'suarh'.tr()} ${(context.locale == const Locale('en')) ? quran.getSurahNameArabic(value.numOfCurrent) : quran.getSurahName(value.numOfCurrent)}_ $numOfVerses ${'ayat'.tr()}",
                       style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: 14,
-                        color: Colors.grey.shade200,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade200
+                            : Colors.black,
                       ),
                     ),
                   ],

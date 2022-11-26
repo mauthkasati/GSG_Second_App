@@ -6,10 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsg_second_project/providers/mainScreenProvider.dart';
 import 'package:gsg_second_project/screens/achievements.dart';
+import 'package:gsg_second_project/screens/firstScreen.dart';
 import 'package:gsg_second_project/sqlHelper.dart';
 import 'package:gsg_second_project/widgets/mainScreenWidgets/oneSmallIcon.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 class TopOfMainScreen extends StatelessWidget {
   const TopOfMainScreen({super.key});
@@ -24,7 +26,9 @@ class TopOfMainScreen extends StatelessWidget {
           height: h * 6 / 32,
           width: w,
           padding: EdgeInsets.all(w / 20),
-          color: const Color.fromARGB(255, 30, 30, 30),
+          color: value.isDarkTheme == 1
+              ? const Color.fromARGB(255, 30, 30, 30)
+              : Colors.green.shade200,
           alignment: Alignment.topCenter,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,11 +75,13 @@ class TopOfMainScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'غريب',
+                    (context.locale == const Locale('en')) ? 'غريب' : 'Gareeb',
                     style: TextStyle(
                       fontSize: 15,
                       decoration: TextDecoration.none,
-                      color: Colors.green.shade500,
+                      color: value.isDarkTheme == 1
+                          ? Colors.green.shade500
+                          : Colors.grey.shade900,
                     ),
                   ),
                   Row(
@@ -84,13 +90,13 @@ class TopOfMainScreen extends StatelessWidget {
                       OneSmallIcon(
                         Icons.auto_stories,
                         value.numOfReadedSurahs.toString(),
-                        Colors.blue,
+                        Colors.blue.shade900,
                       ),
                       const SizedBox(width: 7),
                       OneSmallIcon(
                         Icons.bolt,
                         value.numOfAll.toString(),
-                        Colors.yellow,
+                        Colors.yellow.shade900,
                       ),
                     ],
                   ),
@@ -98,27 +104,73 @@ class TopOfMainScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(width: 10),
-              Container(
-                //******************** */
-                height: 66,
-                width: 66,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color.fromARGB(255, 18, 18, 18),
-                      width: 2,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FirstScreen(),
                     ),
-                    color: const Color.fromARGB(255, 15, 100, 50),
-                    //************************
-                    borderRadius: BorderRadius.circular(33)
-                    //more than 50% of width makes circle
-                    ),
-                child: Center(
-                  child: Text(
-                    value.firstCharOfName,
-                    style: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
+                  );
+                },
+                child: Container(
+                  //******************** */
+                  height: 66,
+                  width: 66,
+                  decoration: BoxDecoration(
+                      gradient: value.isDarkTheme == 1
+                          ? const LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 7, 66, 22),
+                                Color.fromARGB(255, 14, 94, 34),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.center,
+                            )
+                          : LinearGradient(
+                              colors: [
+                                Colors.purple.shade300,
+                                Colors.blue.shade500,
+                              ],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.center,
+                            ),
+                      boxShadow: [
+                        value.isDarkTheme == 1
+                            ? BoxShadow(
+                                color: Colors.grey.shade700.withOpacity(0.0),
+                                spreadRadius: 0,
+                                blurRadius: 0,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              )
+                            : BoxShadow(
+                                color: Colors.blue.withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 2,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                      ],
+                      border: Border.all(
+                        color: Color.fromARGB(255, 18, 18, 18),
+                        width: 1,
+                      ),
+                      color: value.isDarkTheme == 1
+                          ? const Color.fromARGB(255, 15, 100, 50)
+                          : Colors.blue.shade700,
+                      //************************
+                      borderRadius: BorderRadius.circular(33)
+                      //more than 50% of width makes circle
+                      ),
+                  child: Center(
+                    child: Text(
+                      value.firstCharOfName,
+                      style: const TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                 ),

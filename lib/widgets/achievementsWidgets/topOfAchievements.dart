@@ -4,6 +4,7 @@ import 'package:gsg_second_project/providers/mainScreenProvider.dart';
 import 'package:gsg_second_project/screens/achievements.dart';
 import 'package:gsg_second_project/screens/mainScreen.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TopofAchievements extends StatelessWidget {
   // final List<Map<dynamic, dynamic>> d;
@@ -22,7 +23,9 @@ class TopofAchievements extends StatelessWidget {
           width: w,
           padding: EdgeInsets.only(top: w / 16, left: w / 16, right: w / 16),
           // margin: const EdgeInsets.only(bottom: 15),
-          color: const Color.fromARGB(255, 15, 100, 50),
+          color: value.isDarkTheme == 1
+              ? const Color.fromARGB(255, 15, 100, 50)
+              : Colors.brown.shade500,
           child: Column(
             children: [
               Row(
@@ -32,15 +35,17 @@ class TopofAchievements extends StatelessWidget {
                       Navigator.pop(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Achievements(),
+                          builder: (context) => const Achievements(),
                         ),
                       );
                     },
-                    child: const Center(
+                    child: Center(
                       child: Icon(
                         Icons.arrow_back_ios,
                         size: 30,
-                        color: Colors.white,
+                        color: value.isDarkTheme == 1
+                            ? Colors.white
+                            : Colors.black,
                       ),
                     ),
                   ),
@@ -49,11 +54,13 @@ class TopofAchievements extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'الإنجازات',
+                          'achievementsTop'.tr(),
                           style: TextStyle(
                             fontSize: 24,
                             decoration: TextDecoration.none,
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -86,17 +93,21 @@ class TopofAchievements extends StatelessWidget {
                           color: value.c3,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                             width: 1,
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            'السورة',
+                            'surah'.tr(),
                             style: TextStyle(
                               fontSize: 12,
                               decoration: TextDecoration.none,
-                              color: Colors.grey.shade400,
+                              color: value.isDarkTheme == 1
+                                  ? Colors.grey.shade400
+                                  : Colors.black,
                             ),
                           ),
                         ),
@@ -115,17 +126,21 @@ class TopofAchievements extends StatelessWidget {
                           color: value.c2,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                             width: 1,
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            'الكاتب',
+                            'writer'.tr(),
                             style: TextStyle(
                               fontSize: 12,
                               decoration: TextDecoration.none,
-                              color: Colors.grey.shade400,
+                              color: value.isDarkTheme == 1
+                                  ? Colors.grey.shade400
+                                  : Colors.black,
                             ),
                           ),
                         ),
@@ -144,17 +159,21 @@ class TopofAchievements extends StatelessWidget {
                           color: value.c,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                             width: 1,
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            'الكل',
+                            'all'.tr(),
                             style: TextStyle(
                               fontSize: 12,
                               decoration: TextDecoration.none,
-                              color: Colors.grey.shade400,
+                              color: value.isDarkTheme == 1
+                                  ? Colors.grey.shade400
+                                  : Colors.black,
                             ),
                           ),
                         ),

@@ -3,9 +3,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gsg_second_project/sqlHelper.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:gsg_second_project/providers/mainScreenProvider.dart';
 
@@ -44,11 +46,49 @@ class Part extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             margin: const EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
+              gradient: value.isDarkTheme == 1
+                  ? const LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 7, 66, 22),
+                        Color.fromARGB(255, 14, 94, 34),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.center,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        Colors.purple.shade300,
+                        Colors.blue.shade500,
+                      ],
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.center,
+                    ),
+              boxShadow: [
+                value.isDarkTheme == 1
+                    ? BoxShadow(
+                        color: Colors.grey.shade700.withOpacity(0.0),
+                        spreadRadius: 0,
+                        blurRadius: 0,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      )
+                    : BoxShadow(
+                        color: Colors.blue.withOpacity(0.2),
+                        spreadRadius: 3,
+                        blurRadius: 2,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+              ],
               border: Border.all(
                 width: 1,
-                color: const Color.fromARGB(255, 18, 18, 18),
+                color: value.isDarkTheme == 1
+                    ? const Color.fromARGB(255, 18, 18, 18)
+                    : Colors.black,
               ),
-              color: const Color.fromARGB(255, 14, 94, 34),
+              color: value.isDarkTheme == 1
+                  ? const Color.fromARGB(255, 14, 94, 34)
+                  : Colors.blue.shade700,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -58,11 +98,13 @@ class Part extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'سورة',
+                      'suarh'.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         decoration: TextDecoration.none,
-                        color: Colors.grey.shade400,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade400
+                            : Colors.black,
                       ),
                     ),
                     const SizedBox(width: 5),
@@ -70,8 +112,11 @@ class Part extends StatelessWidget {
                       height: 24,
                       width: 24,
                       decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
                         borderRadius: BorderRadius.circular(12),
-                        color: const Color.fromARGB(255, 18, 18, 18),
+                        color: value.isDarkTheme == 1
+                            ? const Color.fromARGB(255, 18, 18, 18)
+                            : Colors.grey.shade300,
                       ),
                       child: Align(
                         alignment: Alignment.center,
@@ -80,47 +125,64 @@ class Part extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 11,
                             decoration: TextDecoration.none,
-                            color: Colors.grey.shade400,
+                            color: value.isDarkTheme == 1
+                                ? Colors.grey.shade400
+                                : Colors.black,
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: (context.locale == const Locale('en')) ? 0 : 15,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        numOfAchievements.toString(),
-                        style: TextStyle(
-                          fontSize: 38,
-                          decoration: TextDecoration.none,
-                          color: Colors.grey.shade400,
-                        ),
+                    Text(
+                      numOfAchievements.toString(),
+                      style: TextStyle(
+                        fontSize:
+                            (context.locale == const Locale('en')) ? 38 : 26,
+                        decoration: TextDecoration.none,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade400
+                            : Colors.black,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        quran.getSurahNameArabic(numOfSurah),
-                        style: TextStyle(
-                          fontSize: 38,
+                    Text(
+                      (context.locale == const Locale('en'))
+                          ? quran.getSurahNameArabic(numOfSurah)
+                          : quran.getSurahName(numOfSurah),
+                      style: GoogleFonts.arefRuqaa(
+                        textStyle: TextStyle(
+                          fontSize:
+                              (context.locale == const Locale('en')) ? 38 : 26,
                           decoration: TextDecoration.none,
-                          color: Colors.grey.shade400,
+                          color: value.isDarkTheme == 1
+                              ? Colors.grey.shade400
+                              : Colors.black,
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: (context.locale == const Locale('en')) ? 0 : 15,
+                ),
                 Text(
-                  'نسبة الانجاز',
+                  'bloodAchievement'.tr(),
                   style: TextStyle(
                     fontSize: 13,
                     decoration: TextDecoration.none,
-                    color: Colors.grey.shade400,
+                    color: value.isDarkTheme == 1
+                        ? Colors.grey.shade400
+                        : Colors.black,
                   ),
+                ),
+                SizedBox(
+                  height: (context.locale == const Locale('en')) ? 0 : 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +192,9 @@ class Part extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 13,
                         decoration: TextDecoration.none,
-                        color: Colors.grey.shade400,
+                        color: value.isDarkTheme == 1
+                            ? Colors.grey.shade400
+                            : Colors.black,
                       ),
                     ),
                     const SizedBox(
@@ -139,23 +203,29 @@ class Part extends StatelessWidget {
                     Container(
                       height: 13,
                       width: blackWidth,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(7),
                           bottomLeft: Radius.circular(7),
                         ),
-                        color: Color.fromARGB(255, 18, 18, 18),
+                        color: value.isDarkTheme == 1
+                            ? const Color.fromARGB(255, 18, 18, 18)
+                            : Colors.grey.shade300,
                       ),
                     ),
                     Container(
                       height: 13,
                       width: brownWidth,
                       decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
                         borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(7),
                           bottomRight: Radius.circular(7),
                         ),
-                        color: Colors.brown.shade900,
+                        color: value.isDarkTheme == 1
+                            ? Colors.brown.shade900
+                            : Colors.brown.shade500,
                       ),
                     ),
                   ],

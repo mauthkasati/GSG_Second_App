@@ -4,6 +4,7 @@ import 'package:gsg_second_project/sqlHelper.dart';
 import 'package:quran/quran.dart' as quran;
 
 class MainScreenProvider extends ChangeNotifier {
+  int isDarkTheme = 1;
   int chosenList = 1;
   int numOfCurrent = 114;
   int numOfAll = 0;
@@ -23,6 +24,22 @@ class MainScreenProvider extends ChangeNotifier {
   List<Map<String, dynamic>> chosenListContent = [];
   // List<Map<String, dynamic>> perSurahTable =
   //     SqlHelper.dbh.readData('select * from perSurah');
+  setTheme() async {
+    List<Map> temp = await SqlHelper.dbh.readData('select * from single');
+    int isDark = temp[0]['id'];
+    // print('isDark = $isDark');
+    if (isDark == 1) {
+      await SqlHelper.dbh.updateData('update single set id = 0');
+      isDarkTheme = 0;
+      // print('if if if if if if ');
+    } else {
+      await SqlHelper.dbh.updateData('update single set id =1');
+      isDarkTheme = 1;
+      // print('else else else ');
+    }
+    notifyListeners();
+  }
+
   setChosenList1() async {
     chosenListContent = await SqlHelper.dbh.readData(
       'select * from achievements',

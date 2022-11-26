@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsg_second_project/screens/loginScreen.dart';
@@ -10,6 +11,7 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(milliseconds: 1400), () {
+      context.setLocale(const Locale('en'));
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -5,6 +5,7 @@ import 'package:gsg_second_project/widgets/achievementsWidgets/oneAchievement.da
 import 'package:gsg_second_project/widgets/allAchievementsWidget/topOfAllAchievements.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:easy_localization/easy_localization.dart';
 
 import '../widgets/allAchievementsWidget/oneOfAllAchievements.dart';
 
@@ -17,7 +18,9 @@ class AllAchievements extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Consumer<MainScreenProvider>(builder: ((context, value, child) {
       return Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: value.isDarkTheme == 1
+            ? Colors.grey.shade900
+            : Colors.green.shade200,
         body: SingleChildScrollView(
           child: Column(
             children: [
