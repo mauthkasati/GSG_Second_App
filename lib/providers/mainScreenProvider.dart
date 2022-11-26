@@ -5,7 +5,7 @@ import 'package:quran/quran.dart' as quran;
 
 class MainScreenProvider extends ChangeNotifier {
   Offset offset = const Offset(10, 650);
-  Offset offset2 = const Offset(10, 600);
+  Offset offset2 = const Offset(10, 580);
   double adjustment2 = 0;
   setOffset(Offset n) {
     offset = n;
